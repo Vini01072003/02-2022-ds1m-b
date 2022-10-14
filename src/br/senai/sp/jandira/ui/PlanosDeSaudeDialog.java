@@ -47,17 +47,18 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
         setResizable(false);
         getContentPane().setLayout(null);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/imagens/add32.png"))); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(228, 0, 124));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/imagens/botao-adicionar.png"))); // NOI18N
         jLabel1.setText("Cadastro de Planos de Saúde - NOVO");
         jPanel1.add(jLabel1);
         jLabel1.setBounds(10, 10, 530, 30);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 810, 50);
+        jPanel1.setBounds(0, 0, 590, 50);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalhes do plano de saúde:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(153, 0, 51))); // NOI18N
         jPanel2.setLayout(null);
@@ -73,6 +74,12 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
         jLabel3.setText("Nome da operadora:");
         jPanel2.add(jLabel3);
         jLabel3.setBounds(30, 110, 230, 16);
+
+        textNomeDaOperadora.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textNomeDaOperadoraActionPerformed(evt);
+            }
+        });
         jPanel2.add(textNomeDaOperadora);
         textNomeDaOperadora.setBounds(30, 130, 500, 30);
 
@@ -132,6 +139,10 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
         
         
     }//GEN-LAST:event_buttonSalvarActionPerformed
+
+    private void textNomeDaOperadoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNomeDaOperadoraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textNomeDaOperadoraActionPerformed
 
     private boolean validarCadastro() {
         
