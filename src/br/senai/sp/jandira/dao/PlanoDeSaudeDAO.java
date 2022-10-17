@@ -42,6 +42,15 @@ public class PlanoDeSaudeDAO { // Simular nosso banco de dados
         
         return null;
     }
+    public static void atualizar(PlanoDeSaude planoDeSaude){
+        for(PlanoDeSaude p : planos) {
+            if(p.getCodigo().equals(planoDeSaude.getCodigo())){
+                planos.set(planos.indexOf(p), planoDeSaude);
+                break;
+            }
+        }
+        
+    }
 
     public static ArrayList<PlanoDeSaude> listarTodos() {
         return planos;

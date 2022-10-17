@@ -76,6 +76,9 @@ public class TesteDao {
         System.out.println("Código: " + p.getCodigo());
         System.out.println("Operadora: " + p.getOperadora());
         
+        int i = PlanoDeSaudeDAO.listarTodos().indexOf(plano2);
+        System.out.println(i);
+        
         
 
 //		PlanoDeSaudeDAO dao = new PlanoDeSaudeDAO();

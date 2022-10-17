@@ -143,6 +143,7 @@ public class PlanosDeSaudePanel extends javax.swing.JPanel {
                 TipoOperacao.ALTERAR,
                 planoDeSaude);
         planosDeSaudeDialog.setVisible(true);
+        criarTabelaPlanosDeSaude();
         
     }
 

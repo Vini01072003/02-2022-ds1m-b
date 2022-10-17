@@ -17,7 +17,7 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
 
     private TipoOperacao tipoOperacao;
     private PlanoDeSaude planoDeSaude;
-    
+
     public PlanosDeSaudeDialog(java.awt.Frame parent,
             boolean modal,
             TipoOperacao tipoOperacao,
@@ -26,13 +26,14 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
         initComponents();
         this.tipoOperacao = tipoOperacao;
         this.planoDeSaude = planoDeSaude;
-        
+
         // Preencher os campos, caso o tipo de operação for ALTERAR
-        if(tipoOperacao == TipoOperacao.ADICIONAR) {
+        if (tipoOperacao == TipoOperacao.ALTERAR) {
             preencherFormulario();
         }
     }
-    private void preencherFormulario()  {
+
+    private void preencherFormulario() {
         labelTitulo.setText("plano De Saúde - " + tipoOperacao);
         textCodigo.setText(planoDeSaude.getCodigo().toString());
         textNomeDaOperadora.setText(planoDeSaude.getOperadora());
@@ -142,24 +143,13 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_textTipoDoPlanoActionPerformed
 
     private void buttonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSalvarActionPerformed
-        // Criar um objeto Plano de Saúde
-        PlanoDeSaude planoDeSaude = new PlanoDeSaude();
-        planoDeSaude.setOperadora(textNomeDaOperadora.getText());
-        planoDeSaude.setTipoDoPlano(textTipoDoPlano.getText());
-        
-        if (validarCadastro()){
-            PlanoDeSaudeDAO.gravar(planoDeSaude);
-            
-            JOptionPane.showMessageDialog(
-                    this, 
-                    "Plano de saúde gravado com sucesso!", 
-                    "Plano de Saúde", 
-                    JOptionPane.INFORMATION_MESSAGE);
-            
-            dispose();
+        if (tipoOperacao == TipoOperacao.ADICIONAR) {
+            gravar();
+        } else {
+            atualizar();
         }
-        
-        
+
+
     }//GEN-LAST:event_buttonSalvarActionPerformed
 
     private void textNomeDaOperadoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNomeDaOperadoraActionPerformed
@@ -169,41 +159,65 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
     private void buttonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonCancelarActionPerformed
-
-    private boolean validarCadastro() {
-        
-        if (textNomeDaOperadora.getText().isEmpty()){
-            
-            JOptionPane.showMessageDialog(
-                    this, 
-                    "Por favor preencha o nome da operadora!", 
-                    "Plano de Saúde", 
-                    JOptionPane.ERROR_MESSAGE);
-            
-            textNomeDaOperadora.requestFocus();
-            
-            return false;
-            
-        }
-        
-        if (textTipoDoPlano.getText().isEmpty()) {
-            
-            JOptionPane.showMessageDialog(
-                    this, 
-                    "Por favor preencha o tipo do plano!", 
-                    "Plano de Saúde", 
-                    JOptionPane.ERROR_MESSAGE);
-            
-            textTipoDoPlano.requestFocus();
-            
-            return false;
-            
-        }
-        
-        return true;
-        
+    private void atualizar(){
+        planoDeSaude.setOperadora(textNomeDaOperadora.getText());
+        planoDeSaude.setTipoDoPlano(textTipoDoPlano.getText());
+        PlanoDeSaudeDAO.atualizar(planoDeSaude);
+        JOptionPane.showMessageDialog(this, "Plano de saúde atualizado com sucesso", "Plano de saúde", JOptionPane.INFORMATION_MESSAGE);
     }
     
+    private void gravar() {
+        PlanoDeSaude planoDeSaude = new PlanoDeSaude();
+        planoDeSaude.setOperadora(textNomeDaOperadora.getText());
+        planoDeSaude.setTipoDoPlano(textTipoDoPlano.getText());
+
+        if (validarCadastro()) {
+            PlanoDeSaudeDAO.gravar(planoDeSaude);
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Plano de saúde gravado com sucesso!",
+                    "Plano de Saúde",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+            dispose();
+        }
+    }
+
+    private boolean validarCadastro() {
+
+        if (textNomeDaOperadora.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Por favor preencha o nome da operadora!",
+                    "Plano de Saúde",
+                    JOptionPane.ERROR_MESSAGE);
+
+            textNomeDaOperadora.requestFocus();
+
+            return false;
+
+        }
+
+        if (textTipoDoPlano.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Por favor preencha o tipo do plano!",
+                    "Plano de Saúde",
+                    JOptionPane.ERROR_MESSAGE);
+
+            textTipoDoPlano.requestFocus();
+
+            return false;
+
+        }
+
+        return true;
+
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancelar;
     private javax.swing.JButton buttonSalvar;
