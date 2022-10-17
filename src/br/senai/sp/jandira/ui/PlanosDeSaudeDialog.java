@@ -6,6 +6,7 @@ package br.senai.sp.jandira.ui;
 
 import br.senai.sp.jandira.dao.PlanoDeSaudeDAO;
 import br.senai.sp.jandira.model.PlanoDeSaude;
+import br.senai.sp.jandira.model.TipoOperacao;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,12 +15,28 @@ import javax.swing.JOptionPane;
  */
 public class PlanosDeSaudeDialog extends javax.swing.JDialog {
 
-    /**
-     * Creates new form PlanosDeSaudeDialog
-     */
-    public PlanosDeSaudeDialog(java.awt.Frame parent, boolean modal) {
+    private TipoOperacao tipoOperacao;
+    private PlanoDeSaude planoDeSaude;
+    
+    public PlanosDeSaudeDialog(java.awt.Frame parent,
+            boolean modal,
+            TipoOperacao tipoOperacao,
+            PlanoDeSaude planoDeSaude) {
         super(parent, modal);
         initComponents();
+        this.tipoOperacao = tipoOperacao;
+        this.planoDeSaude = planoDeSaude;
+        
+        // Preencher os campos, caso o tipo de operação for ALTERAR
+        if(tipoOperacao == TipoOperacao.ADICIONAR) {
+            preencherFormulario();
+        }
+    }
+    private void preencherFormulario()  {
+        labelTitulo.setText("plano De Saúde - " + tipoOperacao);
+        textCodigo.setText(planoDeSaude.getCodigo().toString());
+        textNomeDaOperadora.setText(planoDeSaude.getOperadora());
+        textTipoDoPlano.setText(planoDeSaude.getTipoDoPlano());
     }
 
     /**
@@ -32,10 +49,10 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        labelTitulo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        text_Codigo = new javax.swing.JTextField();
+        textCodigo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         textNomeDaOperadora = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -50,12 +67,12 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(228, 0, 124));
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/imagens/botao-adicionar.png"))); // NOI18N
-        jLabel1.setText("Cadastro de Planos de Saúde - NOVO");
-        jPanel1.add(jLabel1);
-        jLabel1.setBounds(10, 10, 530, 30);
+        labelTitulo.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        labelTitulo.setForeground(new java.awt.Color(228, 0, 124));
+        labelTitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/imagens/botao-adicionar.png"))); // NOI18N
+        labelTitulo.setText("Cadastro de Planos de Saúde - NOVO");
+        jPanel1.add(labelTitulo);
+        labelTitulo.setBounds(10, 10, 530, 30);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 590, 50);
@@ -67,9 +84,9 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
         jPanel2.add(jLabel2);
         jLabel2.setBounds(30, 50, 110, 16);
 
-        text_Codigo.setEditable(false);
-        jPanel2.add(text_Codigo);
-        text_Codigo.setBounds(30, 70, 71, 30);
+        textCodigo.setEditable(false);
+        jPanel2.add(textCodigo);
+        textCodigo.setBounds(30, 70, 71, 30);
 
         jLabel3.setText("Nome da operadora:");
         jPanel2.add(jLabel3);
@@ -96,6 +113,11 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
         textTipoDoPlano.setBounds(30, 190, 500, 30);
 
         buttonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/imagens/cancel32.png"))); // NOI18N
+        buttonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCancelarActionPerformed(evt);
+            }
+        });
         jPanel2.add(buttonCancelar);
         buttonCancelar.setBounds(370, 260, 80, 60);
 
@@ -144,6 +166,10 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_textNomeDaOperadoraActionPerformed
 
+    private void buttonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonCancelarActionPerformed
+
     private boolean validarCadastro() {
         
         if (textNomeDaOperadora.getText().isEmpty()){
@@ -178,59 +204,17 @@ public class PlanosDeSaudeDialog extends javax.swing.JDialog {
         
     }
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PlanosDeSaudeDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PlanosDeSaudeDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PlanosDeSaudeDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PlanosDeSaudeDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                PlanosDeSaudeDialog dialog = new PlanosDeSaudeDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancelar;
     private javax.swing.JButton buttonSalvar;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel labelTitulo;
+    private javax.swing.JTextField textCodigo;
     private javax.swing.JTextField textNomeDaOperadora;
     private javax.swing.JTextField textTipoDoPlano;
-    private javax.swing.JTextField text_Codigo;
     // End of variables declaration//GEN-END:variables
 }

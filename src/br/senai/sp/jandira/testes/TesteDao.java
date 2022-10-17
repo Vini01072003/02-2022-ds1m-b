@@ -71,6 +71,11 @@ public class TesteDao {
             System.out.println("Operadora: " + p.getOperadora());
             System.out.println("-------------------------");
         }
+        // Testar o método getPlanoDeSaude()do DAO
+        PlanoDeSaude p = PlanoDeSaudeDAO.getPlanoDeSaude(101);
+        System.out.println("Código: " + p.getCodigo());
+        System.out.println("Operadora: " + p.getOperadora());
+        
         
 
 //		PlanoDeSaudeDAO dao = new PlanoDeSaudeDAO();

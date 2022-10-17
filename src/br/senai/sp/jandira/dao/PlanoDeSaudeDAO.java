@@ -32,6 +32,16 @@ public class PlanoDeSaudeDAO { // Simular nosso banco de dados
         }
         return false;
     }
+    
+    public static PlanoDeSaude getPlanoDeSaude(Integer Codigo) {
+        for(PlanoDeSaude p : planos ){
+            if(p.getCodigo().equals(Codigo))
+                return p;
+                
+                }
+        
+        return null;
+    }
 
     public static ArrayList<PlanoDeSaude> listarTodos() {
         return planos;
