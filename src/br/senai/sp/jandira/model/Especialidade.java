@@ -2,10 +2,24 @@ package br.senai.sp.jandira.model;
 
 public class Especialidade {
 	
+        private static int contador = 100;
+	private Integer codigo;
 	private String nome;
 	private String descricao;
 	private static int quantidade;
-	
+        
+        
+        public Especialidade(String nome, String descricao){
+            this.nome = nome;
+            this.descricao = descricao;
+            
+        }
+        
+        private void atualizarCodigo() {
+		this.codigo = contador;
+		contador++;
+	}
+        
 	public Especialidade() {
 		quantidade++;
 	}
@@ -30,5 +44,9 @@ public class Especialidade {
 	public int getQuantidade() {
 		return quantidade;
 	}
+
+    public Object getCodigo() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 		
 }
